@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # local apps
-    'recipes.apps.RecipesConfig'
+    'users.apps.UsersConfig',
+    'recipes.apps.RecipesConfig',
 ]
+
+AUTH_USER_MODEL = 'users.SiteUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

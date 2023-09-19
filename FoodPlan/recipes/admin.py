@@ -12,6 +12,7 @@ class CategoryInline(admin.TabularInline):
     extra = 1  
 
 
+@admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
     inlines = [IngredientInline]  
     list_display = ('title', 'category')
@@ -19,17 +20,14 @@ class RecipeAdmin(admin.ModelAdmin):
     search_fields = ('title', 'category__name')
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
 
+@admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('name', 'recipe', 'amount', 'unit')
     list_filter = ('recipe__category', 'unit')
     search_fields = ('name', 'recipe__title', 'recipe__category__name')
-
-
-admin.site.register(Recipe, RecipeAdmin)
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Ingredient, IngredientAdmin)
