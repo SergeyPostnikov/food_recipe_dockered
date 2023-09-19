@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import SiteUser
+from .models import SiteUser, Vote
+
+
+class VoteInline(admin.TabularInline):
+    model = Vote
+    extra = 1
 
 
 @admin.register(SiteUser)
@@ -17,3 +22,9 @@ class UserAdmin(admin.ModelAdmin):
         'is_staff',
         'password'
     )
+
+    inlines = [VoteInline]
+
+@admin.register(Vote)
+class VoteAdmin(admin.ModelAdmin):
+    pass
