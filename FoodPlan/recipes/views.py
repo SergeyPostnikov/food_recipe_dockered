@@ -7,5 +7,9 @@ def index(request):
 
 
 def get_recipe(request, pk):
-    recipe = get_object_or_404(Recipe, pk=pk)
-    return render(request, 'card3.html', context={'recipe': recipe})
+    # recipe = get_object_or_404(Recipe, pk=pk)
+    return render(
+        request, 
+        'card3.html', 
+        # context={'recipe': recipe}
+    )
