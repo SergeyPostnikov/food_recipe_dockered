@@ -48,11 +48,16 @@ class Recipe(models.Model):
         'Заголовок',
         max_length=50
     )
-    category = models.ForeignKey(
+    category = models.ManyToManyField(
         Category, 
-        on_delete=models.CASCADE
+        related_name='recipes'
     )
     text = models.TextField('Рецепт')
+    calories = models.IntegerField(
+        blank=False, 
+        null=False,
+        default=100
+    )
 
     def __str__(self):
         return self.title

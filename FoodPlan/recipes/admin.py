@@ -7,27 +7,25 @@ class IngredientInline(admin.TabularInline):
     extra = 1  
 
 
-class CategoryInline(admin.TabularInline):
-    model = Category
-    extra = 1  
+class RecipeInline(admin.TabularInline):
+    model = Recipe.category.through
+    extra = 1
 
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    inlines = [IngredientInline]  
-    list_display = ('title', 'category')
-    list_filter = ('category',)
-    search_fields = ('title', 'category__name')
-
+    inlines = [
+        IngredientInline,
+    ]  
+    
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    inlines = [RecipeInline]
     list_display = ('name',)
     search_fields = ('name',)
 
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('name', 'recipe', 'amount', 'unit')
-    list_filter = ('recipe__category', 'unit')
-    search_fields = ('name', 'recipe__title', 'recipe__category__name')
+    pass

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import SiteUser
 # Create your views here.
 
@@ -8,7 +8,12 @@ def login(request):
 
 
 def veiw_lk(request, pk):
-    return render(request, 'lk.html')
+    user = get_object_or_404(SiteUser, pk=pk)
+    return render(
+        request, 
+        'lk.html',
+        context={'user': user}
+    )
 
 
 def make_order(request):

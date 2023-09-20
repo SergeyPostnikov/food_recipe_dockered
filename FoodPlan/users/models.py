@@ -6,23 +6,30 @@ from django.utils import timezone as tz
 
 
 class Subscription(models.Model):
-    class Subscriptions(models.TextChoices):
-        FREE = 'FR', _('Бесплатная')
-        BASE = 'BS', _('Базовая')
-        GOLD = 'GD', _('Золотая')
+    class Durations(models.IntegerChoices):
+        ONE = 1, _('Один месяц')
+        THREE = 3, _('Три месяца')
+        SIX = 6, _('Шесть месяцев')
+        TWELVE = 12, _('Двеннадцать месяцев')
     
     user = models.ForeignKey(
         'SiteUser',
         related_name='subscription',
         on_delete=models.CASCADE,
     )
-    subscription = models.CharField(
+    duration_months = models.IntegerField(
         'Тип подписки',
         null=False,
         blank=False,
-        max_length=2,
-        choices=Subscriptions.choices,
-        default=Subscriptions.FREE
+        choices=Durations.choices,
+        default=Durations.ONE
+    )
+
+    start_date = models.DateField(
+        'Дата начала подписки',
+        blank=False,
+        null=False,
+        default=tz.now
     )
     expiration_date = models.DateField(
         'Дата окончания подписки',
@@ -76,9 +83,9 @@ class Vote(models.Model):
 class SiteUser(AbstractUser):
     categories = models.ManyToManyField(
         Category, 
-        related_name='preferences', 
+        related_name='allergies', 
         blank=True,
-        verbose_name='Предпочтения'
+        verbose_name='Аллергии'
     )
 
     class Meta:
