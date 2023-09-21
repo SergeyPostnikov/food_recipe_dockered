@@ -17,3 +17,11 @@ def get_recipe(request, pk):
         'card3.html', 
         context={'recipe': recipe}
     )
+
+
+def simple_recipe_view(request):
+    return render(request, 'card1.html')
+
+
+def detail_recipe_view(request):
+    return render(request, 'card2.html')
