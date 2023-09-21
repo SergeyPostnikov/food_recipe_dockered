@@ -17,11 +17,16 @@
                 <a class="navbar-brand" href="#">
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg'%}" height="55" width="189" alt="">
                 </a>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Выйти</a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Войти</a>
-                {% endif %}
+                <ul class="navbar-nav w-100">
+                    <li class="nav-item align-items-center d-md-flex flex-grow-1 justify-content-end">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logout' %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green me-2">Выйти</a>
+                            <a href="{% url 'user_page' user.pk %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Личный кабинет</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green">Войти</a>
+                    {% endif %}
+                    </li>   
+                </ul>
 
             </div>
         </nav>
