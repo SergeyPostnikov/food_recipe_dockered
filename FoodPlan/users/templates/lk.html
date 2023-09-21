@@ -15,10 +15,10 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-light fixed-top navbar__opacity">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static 'img/logo.8d8f24edbb5f.svg' %}" height="55" width="189" alt="">
                 </a>
-                <button class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
+                <a href="{% url 'logout' %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green me-2">Выйти</a>
             </div>
         </nav>
     </header>
@@ -39,7 +39,7 @@
                             <span class="badge rounded-circle position-absolute bottom-0 end-0 foodplan__bg_green avatar__plus"><a href="#"
                                     class="link-dark text-decoration-none align-middle">+</a></span>
                         </div>
-                        <h3 class="card-title text-center">Tim</h3>
+                        <h3 class="card-title text-center">{{user.username}}</h3>
                         <div class="d-block">
                             <button class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
                         </div>
@@ -57,23 +57,21 @@
                             </ul>
                             <div class="tab-content mt-2">
                                 <div class="tab-pane fade show active" id="data">
-                                    <form action="">
+                                    <form action="post">
                                         <div class="mb-3">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <label for="exampleInputEmail1" class="form-label">Имя</label>
-                                                <small><a href="#" class="link-dark foodplan_green">изменить</a></small>
                                             </div>
                                         
-                                            <input type="text" class="form-control" id="name">
+                                            <input type="text" class="form-control" id="name" value={{user.username}}>
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" value="{{user.email}}">
                                         </div>
                                         <div class="mb-3">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                                                <small><a href="#" class="link-dark foodplan_green">изменить</a></small>
                                             </div>
                                         
                                             <input type="password" class="form-control" id="password">
@@ -88,16 +86,20 @@
                                         </div>
                                     </form>
                                 </div>
+                                
                                 <div class="tab-pane fade" id="menu">
                                     <div class="row">
                                         <div class="col-2">
                                             <img src="{% static 'img/circle1.png' %}" alt="" class="w-100">
                                         </div>
+                                        
                                         <div class="col-10 col-md-10">
                                             <div class="row">
+                                                {% if user.subscription %}
                                                 <div class="col-12">
-                                                    <h2>Название подписки</h2>
+                                                    <h2>{{user.subscription}}</h2>
                                                 </div>
+
                                                 <div class="col-md-12 col-lg-9">
                                                     <h6>Описание подписки Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius saepe ea nobis necessitatibus
                                                         consectetur rem! Eligendi assumenda facere sint quibusdam dolorem quasi doloribus nemo, temporibus molestiae
@@ -121,6 +123,16 @@
                                                     </div>
                                                     
                                                 </div>
+                                                {% else %}
+                                                    <div class="col-12">
+                                                        <h2>Вы пока не оплатили подписку</h2>
+                                                        <div class="col-md-12 col-lg-9">
+                                                            <h6>С подпиской у вас будет доступ к рецептам</h6>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>

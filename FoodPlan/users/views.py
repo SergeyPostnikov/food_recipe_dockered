@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -30,6 +30,7 @@ def logout_view(request):
     return redirect(reverse('login'))
 
 
+@login_required
 def veiw_lk(request, pk):
     user = get_object_or_404(SiteUser, pk=pk)
     return render(
