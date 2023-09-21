@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import veiw_lk, register, login_view, make_order, logout_view
+from .views import veiw_lk, register, login_view, make_order, logout_view, create_subscribe
 from django.contrib.auth import logout
 
 urlpatterns = [
@@ -7,6 +7,7 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('order/', make_order, name='order'),
     path('login/', login_view, name='login'),
+    path('logout', logout_view, name='logout')
     path('logout', logout_view, name='logout')
 ]
  
