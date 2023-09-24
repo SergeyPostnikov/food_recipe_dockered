@@ -58,6 +58,11 @@ class Recipe(models.Model):
         null=False,
         default=100
     )
+    image = models.ImageField(
+        'Картинка',
+        blank=True,
+        null=True,
+        )
 
     def __str__(self):
         return self.title
