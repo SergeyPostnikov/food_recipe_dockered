@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render
-
 from .models import Ingredient, Recipe
+from users.models import Vote, SiteUser
 
 
 def get_recipes_element():
@@ -26,17 +26,31 @@ def index(request):
     )
 
 
-def get_recipe(request, pk):
+def simple_recipe_view(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
+    
+    if request.method == 'POST':
+        user = get_object_or_404(SiteUser, pk=request.user.pk)
+        action = 'L' if request.POST.get('like-button') == '+' else 'D'
+        Vote.objects.get_or_create(
+                user=user,
+                recipe=recipe,
+                vote=action,
+            )
+
+    likes = len(Vote.objects.filter(vote='L', recipe=recipe))
+    dislikes = len(Vote.objects.filter(vote='D', recipe=recipe))
+    ingredients = recipe.ingredients.all()
     return render(
         request,
         'card3.html',
-        context={'recipe': recipe}
+        context={
+            'recipe': recipe,
+            'likes': likes,
+            'dislikes': dislikes,
+            'ingredients': ingredients
+            }
     )
-
-
-def simple_recipe_view(request):
-    return render(request, 'card1.html')
 
 
 def detail_recipe_view(request):

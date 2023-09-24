@@ -36,7 +36,7 @@ class Ingredient(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return f'{self.name} {self.amount} {self.unit}'
 
     class Meta:
         verbose_name = "Ингредиент"
