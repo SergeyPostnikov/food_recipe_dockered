@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import SiteUserCreationForm
     
-from .models import SiteUser
+from .models import SiteUser, Subscription
 
 
 def login_view(request):
@@ -33,10 +33,15 @@ def logout_view(request):
 @login_required
 def veiw_lk(request, pk):
     user = get_object_or_404(SiteUser, pk=pk)
+    subscription = Subscription.objects.filter(user=user).first()
+    context = {
+        'subscription': subscription,
+        'user': user
+    }
     return render(
         request, 
         'lk.html',
-        context={'user': user}
+        context
     )
 
 

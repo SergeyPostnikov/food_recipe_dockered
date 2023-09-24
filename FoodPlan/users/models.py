@@ -42,7 +42,7 @@ class Subscription(models.Model):
         verbose_name_plural = "Подписки"    
 
     def __str__(self):
-        return f'{self.get_subscription_display()} {self.user} до {self.expiration_date}'
+        return f'{self.get_duration_months_display()} {self.user} до {self.expiration_date}'
 
     def is_expired(self):
         if self.expiration_date:
