@@ -37,6 +37,13 @@ def logout_view(request):
 @login_required(login_url='/user/login')
 def veiw_lk(request, pk):
     user = get_object_or_404(SiteUser, pk=pk)
+    
+    if request.method == 'POST':
+        allergy = request.POST.get('allergy', '')
+        allergy = Category.objects.create(is_allergy=True, name=allergy)
+        user.allergies.add(allergy)
+        return redirect('user_page')
+
     subscription = Subscription.objects.filter(user=user).first()
     allergies = user.allergies.all()
     context = {
