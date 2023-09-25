@@ -3,8 +3,12 @@ from .models import Ingredient, Recipe
 from users.models import Vote, SiteUser
 
 
-def get_recipes_element():
-    recipes = Recipe.objects.all()
+def get_recipes_element(request):
+    allergies = request.user.allergies.all()
+
+    recipes = Recipe.objects.exclude(category=allergies[0])[:3]
+    # recipes = Recipe.objects.all()
+    
     recipes_list = {}
     for item in recipes:
         ingredients = Ingredient.objects.filter(recipe_id=item.id)
@@ -54,7 +58,7 @@ def simple_recipe_view(request, pk):
 
 
 def detail_recipe_view(request):
-    recipes_elements = get_recipes_element()
+    recipes_elements = get_recipes_element(request)
     return render(
         request,
         template_name='card2.html',

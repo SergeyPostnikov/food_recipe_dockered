@@ -23,7 +23,7 @@
                         </div>
                         <h3 class="card-title text-center">{{user.username}}</h3>
                         <div class="d-block">
-                            <button class="btn btn-outline-success shadow-none foodplan_green foodplan__border_green">Выйти</button>
+                            <a href="{% url 'detail-recipe' %}" class="btn shadow-none btn-outline-success foodplan_green foodplan__border_green me-2">К рецептам</a>
                         </div>
                     </div>
 
@@ -87,7 +87,11 @@
                                                 </div>
                                                 <div class="col-md-12 col-lg-3 text-muted d-flex flex-column justify-content-between">
                                                     <div class="d-flex flex-row justify-content-between">
-                                                        <small>Аллергии: </small><small>нет</small>
+                                                        <details><summary><small>Аллергии: </small></summary>
+                                                        {% for allergy in allergies %}
+                                                            <p><small>{{allergy}}</small></p>
+                                                        {% endfor %}
+                                                        </details>
                                                     </div>                                                    
                                                 </div>
                                                 {% else %}

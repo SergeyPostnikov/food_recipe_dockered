@@ -81,7 +81,7 @@ class Vote(models.Model):
 
 
 class SiteUser(AbstractUser):
-    categories = models.ManyToManyField(
+    allergies = models.ManyToManyField(
         Category, 
         related_name='allergies', 
         blank=True,

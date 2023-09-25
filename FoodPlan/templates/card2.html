@@ -16,7 +16,7 @@
         <div class="col-12 col-md-8 d-flex flex-column justify-content-between">
           <div class="row">
             {% for id, elements in recipes_elements.items %}
-                <h2>{{ elements.title }}</h2>
+                <h2><a href="{% url 'recipe' id%}">{{ elements.title }}</a></h2>
               <div class="col-12 col-sm-6 d-flex flex-column justify-content-between">
                 <div>{{ elements.text|safe }}</div>
               </div>

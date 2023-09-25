@@ -6,6 +6,7 @@ class Category(models.Model):
         'Категория',
         max_length=25
     )
+    is_allergy = models.BooleanField('Аллергия', default=False)
 
     def __str__(self):
         return self.name
