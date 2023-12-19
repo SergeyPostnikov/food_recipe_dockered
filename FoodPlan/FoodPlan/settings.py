@@ -1,5 +1,5 @@
 from pathlib import Path
-import os 
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-6r#15^n)k%by6m-2eq!$7+-xtp3tj(c^(1n^z3r@1743v@1kdp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', default=True)
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='localhost').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default='*').split(',')
 
 # Application definition
 
@@ -125,15 +125,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+
 STATIC_URL = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
- 
+
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static_dev'),
 
 ]
 

@@ -1,0 +1,28 @@
+version: '3'
+
+volumes:
+  media:
+  static:
+
+services:
+  food_plan:
+    build: ./FoodPlan
+    ports:
+      - "8000:8000"
+    volumes:
+      - media:/FoodPlan/media
+      - static:/FoodPlan/static
+    command: 
+      bash -c "python3 manage.py collectstatic --noinput --clear && python3 -m gunicorn FoodPlan.wsgi:application --bind 0.0.0.0:8000"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - media:/opt/media
+      - static:/opt/static
+    depends_on:
+      - food_plan
+
+    
